@@ -1,10 +1,10 @@
 apt-get update
-apt-get install lightdm
-apt-get install lxde
+apt-get install lightdm lxde xorg midori xserver-xorg-input-evdev
+#apt-get install lxde
 ##apt-get install xinit
-apt-get install xorg
-apt-get install midori
-apt-get install xserver-xorg-input-evdev
+#apt-get install xorg
+#apt-get install midori
+#apt-get install xserver-xorg-input-evdev
 
 
 git clone https://github.com/goodtft/LCD-show.git
