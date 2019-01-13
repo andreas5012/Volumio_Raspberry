@@ -1,0 +1,51 @@
+apt-get update
+apt-get install lightdm
+apt-get install lxde
+##apt-get install xinit
+apt-get install xorg
+apt-get install midori
+apt-get install xserver-xorg-input-evdev
+
+
+git clone https://github.com/goodtft/LCD-show.git
+chmod -R 755 LCD-show
+cd LCD-show/
+
+sudo mkdir /etc/X11/xorg.conf.d
+sudo cp ./usr/tft35a-overlay.dtb /boot/overlays/
+sudo cp ./usr/tft35a-overlay.dtb /boot/overlays/tft35a.dtbo
+sudo cp -rf ./usr/99-calibration.conf-35  /etc/X11/xorg.conf.d/99-calibration.conf
+
+sudo mv /boot/cmdline.txt /boot/cmdline.txt.org
+##sudo cp ./usr/cmdline.txt /boot/
+echo "splash quiet plymouth.ignore-serial-consoles dwc_otg.fiq_enable=1 dwc_otg.fiq_fsm_enable=1 dwc_otg.fiq_fsm_mask=0xF dwc_otg.nak_holdoff=1 dwc_otg.lpm_enable=0 console=tty1 console=ttyAMA0,115200 elevator=noop imgpart=/dev/mmcblk0p2 imgfile=/volumio_current.sqsh rootwait fbcon=map:10 fbcon=font:ProFont6x11 logo.nologo" >> /boot/cmdline.txt
+
+sudo mv /boot/config.txt /boot/config.txt.org
+echo "initramfs volumio.initrd
+gpu_mem=32
+max_usb_current=1
+dtparam=audio=on
+audio_pwm_mode=2
+dtparam=i2c_arm=on
+disable_splash=1
+hdmi_force_hotplug=1
+dtparam=spi=on
+enable_uart=1
+dtparam=audio=on
+dtoverlay=tft35a
+gpu_mem_1024=256
+gpu_mem_512=144
+gpu_mem_256=112
+dtparm=spi=on
+avoid_warnings=1" >> /boot/config.txt
+
+sudo cp -rf /usr/share/X11/xorg.conf.d/10-evdev.conf /usr/share/X11/xorg.conf.d/45-evdev.conf
+
+sudo apt-get install raspi-config
+
+sudo nano /etc/lightdm/lightdm.conf ## autologin-user=volumio
+
+
+reboot
+
+
