@@ -45,6 +45,9 @@ sudo apt-get install raspi-config
 
 sudo nano /etc/lightdm/lightdm.conf ## autologin-user=volumio
 
+sudo nano /usr/share/X11/xorg.conf.d  ## Option "GrabDevice"        "True"  	# force  a  grab on the event device. Doing so will ensure that no
+	                               						# other driver can initialise the same device
+
 
 reboot
 
